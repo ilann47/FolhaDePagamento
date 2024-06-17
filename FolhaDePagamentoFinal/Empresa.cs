@@ -11,7 +11,10 @@ namespace FolhaDePagamentoFinal
         protected string razaoSocial;
         protected string cnpj;
         protected int NF;
-        protected double total;
+        protected int total;
+        protected double totalLiquido;
+        protected double totalBruto;
+        protected double totalDescontos;
 
         public Empresa()
         {
@@ -26,6 +29,37 @@ namespace FolhaDePagamentoFinal
                 this.NF = 0;
             this.total = 0;
         }
+        public string RazaoSocial
+        {
+            get => razaoSocial;
+            set => razaoSocial = value;
+        }
+        public int VNF
+        {
+            get => NF;
+            set => NF = value;
+        }
+        public double TotalBruto
+        {
+            get => totalBruto;
+            set => totalBruto = value;
+        }
+        public double TotalDescontos
+        {
+            get => totalDescontos;
+            set => totalDescontos = value;
+        }
+        public double TotalLiquido
+        {
+            get => TotalLiquido; 
+            set => TotalLiquido = value;
+        }
+        public int Total
+        {
+            get => total; 
+            set => total = value;
+        }
+
 
         public string informeRazaoSocial()
         {
@@ -37,9 +71,9 @@ namespace FolhaDePagamentoFinal
             return NF;
         }
 
-        public double informeTotal()
+        public double informeTotalBruto()
         {
-            return total;
+            return totalBruto;
         }
 
         public void processeFolha(Interfaces interfaces)
@@ -55,53 +89,43 @@ namespace FolhaDePagamentoFinal
             double salBase = 0.0;
             double gratProd = 0.0;
             double gratChefia = 0.0;
+            char cargo = 'F';
 
             cont = 0;
             while (cont < NF)
             {
-                interfaces.pecaDadosFuncionario(ref nome, ref sexo, ref idade, ref matricula, ref salBase, ref gratProd, ref numDependentes, ref tipo, ref gratChefia); 
-                if (tipo == 3)
+                interfaces.pecaDadosFuncionario(ref nome, ref sexo, ref idade, ref matricula, ref salBase, ref gratProd, ref numDependentes, ref cargo, ref gratChefia);
+                if (cargo == 'A')
                 {
-                    funcionario = new Funcionario(matricula, salBase, gratProd, numDependentes, nome, idade, sexo);
-                    total = total + funcionario.fornecaSalarioBruto();
-                    interfaces.mostraDadosFuncionario(funcionario);
-                    interfaces.mostraEmpresa(razaoSocial, cnpj, NF);
+                    funcionario = new Apoio(cargo, matricula, salBase, gratProd, numDependentes, nome, idade, sexo);
                     cont++;
 
 
                 }
-                else if (tipo == 2)
+                else if (cargo == 'C')
                 {
-                    funcionario = new Chefe(gratChefia, matricula, salBase, gratProd, numDependentes, sexo, idade, nome);
+                    funcionario = new Chefe(cargo, gratChefia, matricula, salBase, gratProd, numDependentes, sexo, idade, nome);
                     ((Chefe)funcionario).GratChefia = gratChefia;
-                    total = total + funcionario.fornecaSalarioBruto();
-                    interfaces.mostraDadosFuncionario(funcionario);
-                    interfaces.mostraEmpresa(razaoSocial, cnpj, NF);
                     cont++;
 
                 }
-                else if (tipo == 1)
+                else
                 {
-                    funcionario = new Apoio(matricula, salBase, gratProd, numDependentes, nome, idade, sexo);
-                    total = total + funcionario.fornecaSalarioBruto();
-                    interfaces.mostraDadosFuncionario(funcionario);
-                    interfaces.mostraEmpresa(razaoSocial, cnpj, NF);
+                    funcionario = new Funcionario(cargo, matricula, salBase, gratProd, numDependentes, nome, idade, sexo);
                     cont++;
 
 
                 }
+
+                total = this.informeNF();
+                totalBruto += funcionario.fornecaSalarioBruto();
+                totalDescontos += funcionario.fornecaDesconto();
+                totalLiquido += funcionario.fornecaSalarioLiquido();
+                interfaces.mostraEmpresa(razaoSocial, cnpj, total, totalBruto, totalDescontos, totalLiquido);
+                interfaces.mostraDadosFuncionario(funcionario);
             }
         }
-        public string RazaoSocial
-        {
-            get => razaoSocial;
-            set => razaoSocial = value;
-        }
-        public int VNF
-        {
-            get => NF;
-            set => NF = value;
-        }
+
 
     }
 }

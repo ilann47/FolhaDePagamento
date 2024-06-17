@@ -15,21 +15,15 @@ namespace FolhaDePagamentoFinal
             gratChefia = 0;
         }
 
-        public Chefe(double gratChefia, string matricula, double salBase, double gratProd, int numDependentes, string sexo, int idade, string nome) : base(matricula, salBase, gratProd, numDependentes, sexo, idade, nome)
+        public Chefe(char cargo, double gratChefia, string matricula, double salBase, double gratProd, int numDependentes, string sexo, int idade, string nome) : base(cargo, matricula, salBase, gratProd, numDependentes, sexo, idade, nome)
         {
             this.gratChefia = gratChefia;
         }
-
-
 
         public override double fornecaSalarioBruto()
         {
             return this.gratChefia +  base.fornecaSalarioBruto();
         }
-
-
-
-
 
         public double GratChefia
         {

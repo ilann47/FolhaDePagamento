@@ -13,6 +13,7 @@ namespace FolhaDePagamentoFinal
         protected double salBase;
         protected double gratProd;
         protected int numDependentes;
+        protected char cargo;
 
         public Funcionario() : base()
         {
@@ -20,19 +21,18 @@ namespace FolhaDePagamentoFinal
             salBase = 0;
             gratProd = 0;
             numDependentes = 0;
+            cargo = 'F';
         }
 
 
 
-        public Funcionario(string matricula, double salBase, double gratProd, int numDependentes, string nome, int idade, string sexo) : base(nome,idade,sexo)
+        public Funcionario(char cargo, string matricula, double salBase, double gratProd, int numDependentes, string nome, int idade, string sexo) : base(nome,idade,sexo)
         {
-            this.nome = nome;
-            this.idade = idade;
-            this.sexo = sexo;
             this.matricula = matricula;
             this.salBase = salBase;
             this.gratProd = gratProd;
             this.numDependentes = numDependentes;
+            this.cargo = cargo;
         }
 
         public string Matricula 
@@ -55,22 +55,31 @@ namespace FolhaDePagamentoFinal
             get => numDependentes; 
             set => numDependentes = value;
         }
+        public char Cargo
+        {
+            get => cargo;
+            set => cargo = value;
+        }
 
         public virtual double fornecaSalarioBruto()
         {
             return salBase + gratProd;
         }
 
-        public virtual double fornecaDesconto()
+        public double fornecaDesconto()
         {
-            if (this.fornecaSalarioBruto() > 0 && this.fornecaSalarioBruto() <= 1000)
-                return 0;
-            else if (this.fornecaSalarioBruto() > 1000 && this.fornecaSalarioBruto() <= 1800)
-                return this.fornecaSalarioBruto() - ((this.fornecaSalarioBruto() * 0.10) + (this.fornecaSalarioBruto() * 0.10) + 100);
-            else if (this.fornecaSalarioBruto() > 1800)
-                return this.fornecaSalarioBruto() - ((this.fornecaSalarioBruto() * 0.25) + (this.fornecaSalarioBruto() * 0.10) + 370);
+            double salBruto = this.fornecaSalarioBruto();
+            double INSS, IR;
+            if (salBruto > 0 && salBruto <= 1000)
+                IR = 0;
+            else if (salBruto > 1000 && salBruto <= 1800)
+                IR = (salBruto * 0.10) - 100;
+            else if (salBruto > 1800)
+                IR = salBruto * 0.25 - 370;
             else
-                return 0;
+                IR = 0;
+            INSS = salBruto * 0.10;
+            return IR + INSS;
         }
 
         public virtual double fornecaSalarioLiquido()
