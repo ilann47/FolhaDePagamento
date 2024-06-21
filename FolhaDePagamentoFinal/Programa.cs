@@ -25,6 +25,7 @@ namespace FolhaDePagamentoFinal
             inter.pecaEmpresa(ref razaoSocial, ref cnpj, ref NF);
             empresa = new Empresa(razaoSocial,NF, cnpj);
             empresa.processeFolha(inter);
+            inter.mostraEmpresa(empresa);
 
         }
     }

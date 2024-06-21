@@ -34,6 +34,11 @@ namespace FolhaDePagamentoFinal
             get => razaoSocial;
             set => razaoSocial = value;
         }
+        public string Cnpj
+        {
+            get => cnpj;
+            set => cnpj = value;    
+        }
         public int VNF
         {
             get => NF;
@@ -51,8 +56,8 @@ namespace FolhaDePagamentoFinal
         }
         public double TotalLiquido
         {
-            get => TotalLiquido; 
-            set => TotalLiquido = value;
+            get => totalLiquido; 
+            set => totalLiquido = value;
         }
         public int Total
         {
@@ -121,9 +126,9 @@ namespace FolhaDePagamentoFinal
                 totalBruto += funcionario.fornecaSalarioBruto();
                 totalDescontos += funcionario.fornecaDesconto();
                 totalLiquido += funcionario.fornecaSalarioLiquido();
-                interfaces.mostraEmpresa(razaoSocial, cnpj, total, totalBruto, totalDescontos, totalLiquido);
                 interfaces.mostraDadosFuncionario(funcionario);
             }
+
         }
 
 

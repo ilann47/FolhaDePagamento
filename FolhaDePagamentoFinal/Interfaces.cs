@@ -52,15 +52,15 @@ namespace FolhaDePagamentoFinal
 
         }
 
-        public void mostraEmpresa(string razaoSocial, string cnpj, int total, double totalBruto, double totalDescontos, double totalLiquido)
+        public void mostraEmpresa(Empresa empresa)
         {
             Console.WriteLine("\n--------------------------------------------------------------");
-            Console.WriteLine("Razao social: " + razaoSocial);
-            Console.WriteLine("CNPJ: " + cnpj);
-            Console.WriteLine("Numero de funcionarios: " + total);
-            Console.WriteLine("Total de salarios bruto pagos pela empresa: " + totalBruto);
-            Console.WriteLine("Total de salarios Liquidos pagos pela empresa: " + totalLiquido);
-            Console.WriteLine("Total de descontos: " + totalDescontos);
+            Console.WriteLine("Razao social: " + empresa.RazaoSocial);
+            Console.WriteLine("CNPJ: " + empresa.Cnpj);
+            Console.WriteLine("Numero de funcionarios: " + empresa.Total);
+            Console.WriteLine("Total de salarios bruto pagos pela empresa: " + empresa.TotalBruto);
+            Console.WriteLine("Total de salarios Liquidos pagos pela empresa: " + empresa.TotalLiquido);
+            Console.WriteLine("Total de descontos: " + empresa.TotalDescontos);
             Console.WriteLine("--------------------------------------------------------------");
 
 
