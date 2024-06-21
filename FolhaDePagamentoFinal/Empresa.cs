@@ -8,19 +8,18 @@ namespace FolhaDePagamentoFinal
 {
     internal class Empresa
     {
-        protected string razaoSocial;
-        protected string cnpj;
-        protected int NF;
-        protected int total;
-        protected double totalLiquido;
-        protected double totalBruto;
-        protected double totalDescontos;
+        private string razaoSocial;
+        private string cnpj;
+        private int NF;
+        private int total;
+        private double totalLiquido;
+        private double totalBruto;
+        private double totalDescontos;
 
         public Empresa()
         {
             razaoSocial = "";
             cnpj = "";
-
         }
 
         public Empresa(string VRS, int VNF, string cnpj)
