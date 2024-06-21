@@ -15,7 +15,9 @@ namespace FolhaDePagamentoFinal
 
         public Pessoa()
         {
-
+            nome = "";
+            idade = 0;
+            sexo = "";
         }
 
         public Pessoa(string nome, int idade, string sexo)

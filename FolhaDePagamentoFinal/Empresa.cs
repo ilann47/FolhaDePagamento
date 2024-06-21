@@ -18,6 +18,9 @@ namespace FolhaDePagamentoFinal
 
         public Empresa()
         {
+            razaoSocial = "";
+            cnpj = "";
+
         }
 
         public Empresa(string VRS, int VNF, string cnpj)
@@ -85,7 +88,6 @@ namespace FolhaDePagamentoFinal
         {
             Funcionario funcionario;
             int cont = 0;
-            int tipo = 0;
             int numDependentes = 0;
             int idade  = 0;
             string sexo = "";
